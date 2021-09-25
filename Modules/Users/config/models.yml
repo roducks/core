@@ -1,0 +1,6 @@
+users:
+  dispatch: 'Roducks\Modules\Users\Db\Models\Users'
+eav:
+  dispatch: 'Roducks\Modules\Users\Db\Models\Eav'
+users.join:
+  dispatch: 'Roducks\Modules\Users\Db\Models\UsersRolesJoin'

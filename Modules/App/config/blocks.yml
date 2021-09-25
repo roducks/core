@@ -1,0 +1,4 @@
+container:
+  dispatch: 'Roducks\Modules\App\Blocks\Container\Dynamic'
+languages.menu:
+  dispatch: 'Roducks\Modules\App\Blocks\Languages\Menu'

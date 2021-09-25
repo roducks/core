@@ -1,0 +1,21 @@
+user:
+  dispatch: 'Roducks\Modules\Users\Cli\User'
+  name: User
+  skip: true
+  services:
+    - user
+  commands:
+    create:
+      description: 'Creates a new user.'
+      options:
+        admin:
+          name: --admin
+          description: Admin users
+    change_password:
+      description: 'Changes users password.'
+pswd:
+  dispatch: 'Roducks\Modules\Users\Cli\User::change_password'
+  description: 'Changes users password.'
+  parent: user
+  services:
+    - user

@@ -1,0 +1,2 @@
+users:
+  dispatch: 'Roducks\Modules\Users\Db\Schema\Users'

@@ -1,0 +1,24 @@
+users.endpoint:
+  uri: '/api/v1/users'
+  dispatch: 'Roducks\Modules\Users\Api\Users'
+  services:
+    - user
+  methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+users.me:
+  uri: '/api/v1/me'
+  dispatch: 'Roducks\Modules\Users\Api\Users::me'
+  services:
+    - user
+  methods:
+    - GET
+users.auth:
+  uri: '/api/v1/auth'
+  dispatch: 'Roducks\Modules\Users\Api\Auth::verify'
+  services:
+    - user
+  methods:
+    - POST

@@ -1,0 +1,10 @@
+documentation:
+  dispatch: 'Roducks\Modules\Documentation\Cli\Documentation'
+  name: Documentation
+  services:
+    - storage
+  description: 'Install Documentation.'
+  options:
+    _off:
+      name: --off
+      description: 'Uninstall documentation module.'

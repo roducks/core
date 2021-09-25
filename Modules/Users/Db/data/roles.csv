@@ -1,0 +1,5 @@
+id_role_type,name,config,created_at
+1,Admin Gold,admin_gold.json,NOW()
+1,Admin Silver,admin_silver.json,NOW()
+1,Admin Bronze,admin_bronze.json,NOW()
+2,Subscriber,subscriber.json,NOW()

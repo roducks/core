@@ -1,0 +1,9 @@
+setup:
+  dispatch: 'Roducks\Modules\Setup\Cli\Setup'
+  services:
+    - storage
+  name: Setup
+  description: 'Create initial database tables.' 
+  commands:
+    reset:
+      description: 'Remove initial database tables.'

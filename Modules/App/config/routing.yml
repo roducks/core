@@ -1,0 +1,6 @@
+language.switcher:
+  uri: '/_lang/{lang:slug}.*'
+  dispatch: 'Roducks\Modules\App\Page\Language::change'
+  services:
+    - url
+    - cookie

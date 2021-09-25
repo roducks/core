@@ -1,0 +1,2 @@
+setup:
+  dispatch: 'Roducks\Modules\Setup\Db\Models\Setup'

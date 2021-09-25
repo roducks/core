@@ -1,0 +1,5 @@
+{
+  "users": {
+    "welcome": "Welcome {?} user number {?}!"
+  }
+}

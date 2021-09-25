@@ -1,0 +1,31 @@
+ul.languages__menu {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+ul.languages__menu li {
+  list-style: none;
+  margin-right: 10px;
+}
+
+ul.languages__menu li.clock {
+  margin-left: 35px;
+}
+
+ul.languages__menu li i {
+  color: #999;
+}
+
+ul.languages__menu li i.fa-globe {
+  position: relative;
+  top: 2px;
+}
+
+ul.languages__menu li a {
+  color: #444;
+}
+
+ul.languages__menu li img {
+  width: 16px;
+}

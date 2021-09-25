@@ -1,0 +1,4 @@
+language:
+  dispatch: 'Roducks\Modules\App\Observers\Language::dispatch'
+http:
+  dispatch: 'Roducks\Modules\App\Observers\Http::dispatch'

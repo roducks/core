@@ -1,0 +1,4 @@
+user:
+  dispatch: 'Roducks\Modules\Users\Services\User'
+  services:
+    - eav

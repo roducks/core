@@ -1,0 +1,3 @@
+login.index:
+  uri: '/login'
+  dispatch: 'Roducks\Modules\Login\Page\Login'

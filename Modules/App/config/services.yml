@@ -1,0 +1,30 @@
+db:
+  dispatch: 'Roducks\Services\Db'
+eav:
+  dispatch: 'Roducks\Services\Eav'
+url:
+  dispatch: 'Roducks\Services\Url'
+cookie:
+  dispatch: 'Roducks\Services\Cookie'
+  services:
+    - url
+lang:
+  dispatch: 'Roducks\Services\Language'
+  services:
+    - cookie
+storage:
+  dispatch: 'Roducks\Services\Storage'
+i18n:
+  dispatch: 'Roducks\Services\i18n'
+  services:
+    - lang
+view:
+  dispatch: 'Roducks\Page\View'
+  services:
+    - lang
+    - cors
+    - i18n
+link:
+  dispatch: 'Roducks\Services\Link'
+  services:
+    - url

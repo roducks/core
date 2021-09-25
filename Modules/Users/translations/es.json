@@ -1,0 +1,5 @@
+{
+  "users": {
+    "welcome": "Bienvenido {?} usuario número {?}!"
+  }
+}

@@ -1,0 +1,14 @@
+<div class="container">
+  <ul class="languages__menu">
+    <li><i class="fa fa-globe"></i></li>
+    {% for lang, item in items %}
+    <li>
+      <a href="/_lang/{{ lang }}/">
+        <img src="{% asset 'icons/lang/{{ item.icon }}' %}" alt=""> 
+        {{ item.name }}
+      </a>
+    </li>
+    {% endfor %}
+    <li class="clock"><i class="fa fa-clock"></i> {{ time }}</li>
+  </ul>
+</div>

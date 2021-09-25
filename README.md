@@ -1,2 +1,2 @@
-# core
-Roducks PHP Framework
+# Roducks PHP Framework
+It includes core files.

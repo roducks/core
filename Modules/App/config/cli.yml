@@ -1,0 +1,50 @@
+help:
+  dispatch: 'Roducks\Modules\App\Cli\Help'
+status:
+  dispatch: 'Roducks\Modules\App\Cli\Status'
+  name: Status
+  description: Checks PHP version and extensions.
+cache:
+  dispatch: 'Roducks\Modules\App\Cli\Cache'
+  name: Cache
+  skip: true
+  commands:
+    clear:
+      description: 'Run after editing any YML file.'
+cc:
+  dispatch: 'Roducks\Modules\App\Cli\Cache::clear'
+  description: 'Cache Clear alias command.'
+  parent: cache
+module:
+  dispatch: 'Roducks\Modules\App\Cli\Module'
+  services:
+    - storage
+  name: Module
+  skip: true
+  commands:
+    install:
+      description: 'Install module.'
+      args: '<module>'
+    uninstall:
+      description: 'Uninstall module.'
+      args: '<module>'
+i:
+  dispatch: 'Roducks\Modules\App\Cli\Module::install'
+  services:
+    - storage
+  args: '<module>'
+  parent: module
+  description: 'Install module alias.'
+rm:
+  dispatch: 'Roducks\Modules\App\Cli\Module::uninstall'
+  services:
+    - storage
+  args: '<module>'
+  parent: module
+  description: 'Uninstall module alias.'
+version:
+  dispatch: 'Roducks\Modules\App\Cli\Version'
+  name: Version
+_v:
+  dispatch: 'Roducks\Modules\App\Cli\Version'
+  parent: version
