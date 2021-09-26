@@ -282,6 +282,11 @@ abstract class Dispatcher {
       array_unshift($config['services'], 'view');
     }
 
+    // Form dependency is required for Json pages.
+    if (preg_match('/Json/', $dispatcher)) {
+      array_push($config['services'], 'form');
+    }
+
     $body = self::_getBody();
     $request = Request::init($body);
     $settings['dispatch']['id'] = $config['id'];

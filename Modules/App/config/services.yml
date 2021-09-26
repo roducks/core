@@ -28,3 +28,5 @@ link:
   dispatch: 'Roducks\Services\Link'
   services:
     - url
+form:
+  dispatch: 'Roducks\Services\Form'

@@ -18,26 +18,27 @@
  *
  */
 
-namespace Roducks\Page;
+namespace Roducks\Services;
 
-use Roducks\Services\Db;
-use Roducks\Services\Form;
+use Roducks\Page\Service;
+use Roducks\Lib\Data\Hash;
+use Roducks\Page\JsonToken;
+use Roducks\Lib\Data\Session;
 
-abstract class JsonToken extends Json {
+class Form extends Service {
 
-  /**
-   * 
-   */
-  public function __construct(array $settings, Db $db, Form $form)
+  public function setHash($key = JsonToken::TOKEN)
   {
-    parent::__construct($settings, $db, $form);
-    $token = $settings['request']->get('token', NULL);
-
-    if (empty($token) || $token !== $this->form->getHash(static::TOKEN)) {
-      $this->data('error', TRUE);
-      $this->data('message', "A valid token is required.");
-      $this->output(401);
-    }
+    Session::set($key, Hash::getToken());
   }
 
+  public function getHash($key = JsonToken::TOKEN)
+  {
+    return Session::get($key, NULL);
+  }
+
+  public function unsetHash($key = JsonToken::TOKEN)
+  {
+    Session::reset($key);
+  }
 }
