@@ -26,6 +26,7 @@ use Roducks\Framework\App;
 use Roducks\Lib\Sql\Query;
 use Roducks\Lib\Sql\Table;
 use Roducks\Lib\Output\Error;
+use Roducks\Framework\Autoload;
 
 class Db extends Di {
   protected $mysqli = NULL;
@@ -60,8 +61,13 @@ class Db extends Di {
    */
   public function __construct(array $settings)
   {
+    // Avoid looping
+    if (Autoload::$debugger) {
+      return FALSE;
+    }
+
     $creds = $settings['credentials'];
-    
+
     try {
       $this->_connect([
         $creds['host'],
@@ -72,7 +78,10 @@ class Db extends Di {
       ]);
     }
     catch (\Exception $e) {
-      Error::debug([$e->getMessage()]);
+      Error::debug([
+        'MySQL connection failed:',
+        $e->getMessage(),
+      ]);
     }
 
     # ** IMPORTANT ** For security measures credentials are removed.

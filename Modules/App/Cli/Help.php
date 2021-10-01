@@ -98,10 +98,8 @@ class Help extends Version {
           foreach ($config['options'] as $option) {
             $name = "   {$option['name']}";
             $sp = $max - strlen($name) + $extra - 11;
-            $options .= $name . str_repeat(' ', $sp) . $option['description'];
+            $options .= $name . str_repeat(' ', $sp) . $option['description'] . self::LN;
           }
-
-          $options .= self::LN;
         }
 
         return "{$config['command']}" . str_repeat(' ', $space + $extra) . $config['description'] . $options;

@@ -96,19 +96,19 @@ abstract class Autoload {
   {
     $dbCreds = Config::getContent(Path::getAppSiteConfig(static::$site, 'database'));
     $services = Config::getCoreServices();
-    $host = $dbCreds['host'] ?? NULL;
-    $db = $dbCreds['db'] ?? NULL;
-    $user = $dbCreds['user'] ?? NULL;
-    $password = $dbCreds['password'] ?? NULL;
-    $port = $dbCreds['port'] ?? NULL;
+    $host = $dbCreds['host'] ?? 'DB_HOST';
+    $db = $dbCreds['db'] ?? 'DB_NAME';
+    $user = $dbCreds['user'] ?? 'DB_USER';
+    $password = $dbCreds['password'] ?? 'DB_PASSWORD';
+    $port = $dbCreds['port'] ?? 'DB_PORT';
     $settings = [
       'di' => 'db',
       'credentials' => [
         'host' => Http::getEnv(Helper::getEnvVar($host)) ?? 'localhost',
-        'db' => Http::getEnv(Helper::getEnvVar($db)) ?? '',
-        'user' => Http::getEnv(Helper::getEnvVar($user)) ?? '',
-        'password' => Http::getEnv(Helper::getEnvVar($password)) ?? '',
-        'port' => intval(Http::getEnv(Helper::getEnvVar($port))) ?? 3306,
+        'db' => Http::getEnv(Helper::getEnvVar($db)) ?? 'roducks',
+        'user' => Http::getEnv(Helper::getEnvVar($user)) ?? 'roducks',
+        'password' => Http::getEnv(Helper::getEnvVar($password)) ?? 'roducks',
+        'port' => Http::getEnv(Helper::getEnvVar($port)) ?? 3306,
       ],
     ];
 

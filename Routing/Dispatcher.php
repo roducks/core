@@ -179,7 +179,7 @@ abstract class Dispatcher {
   public static function web($dir)
   {
     // Avoid dispatching public assets
-    if (preg_match('/^\/public/', Http::getUri())) {
+    if (preg_match('/^\/assets/', Http::getUri())) {
       Http::sendHeaderNotFound(TRUE);
     }
 
