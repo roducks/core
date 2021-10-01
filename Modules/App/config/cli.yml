@@ -4,6 +4,17 @@ status:
   dispatch: 'Roducks\Modules\App\Cli\Status'
   name: Status
   description: Checks PHP version and extensions.
+routing:
+  dispatch: 'Roducks\Modules\App\Cli\Routing'
+  name: Routing
+  description: Shows web routing.
+  options:
+    web:
+      name: --web
+      description: Filter by Web routing.
+    api:
+      name: --api
+      description: Filter by API routing.
 cache:
   dispatch: 'Roducks\Modules\App\Cli\Cache'
   name: Cache
