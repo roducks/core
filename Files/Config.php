@@ -31,6 +31,11 @@ abstract class Config {
   public static function getContent($file, $ext = Path::YML_EXT)
   {
     $data = [];
+
+    if (empty($file)) {
+      return $data;
+    }
+
     $paths = [
       "{$file}.local" . $ext,
       $file . $ext
@@ -64,9 +69,21 @@ abstract class Config {
     return self::getContent(Path::getCoreModuleConfig(Autoload::DEFAULT_MODULE, 'services'));
   }
 
-  public static function getModule($path)
+  public static function getModule($site, $name)
   {
-    return self::getContent($path . 'module');
+    $file = 'module' . Path::YML_EXT;
+    $path = Path::get([
+      Path::getAppSiteModuleConfig($site, $name, $file),
+      Path::getCommunityModuleConfig($name, $file),
+      Path::getCoreModuleConfig($name, $file)
+    ]);
+
+    return self::getContent(File::removeExt($path));
+  }
+
+  public static function getSite($name)
+  {
+    return self::getContent(Path::getAppSiteConfig($name, 'config'));
   }
 
 }

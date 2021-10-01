@@ -2,6 +2,8 @@ db:
   dispatch: 'Roducks\Services\Db'
 eav:
   dispatch: 'Roducks\Services\Eav'
+config:
+  dispatch: 'Roducks\Services\Config'
 url:
   dispatch: 'Roducks\Services\Url'
 cookie:
