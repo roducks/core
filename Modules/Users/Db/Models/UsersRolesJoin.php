@@ -58,6 +58,7 @@ class UsersRolesJoin extends Join {
   {
     $this
       ->select([
+        self::field('u.id'),
         self::field('u.name'),
         self::field('u.email'),
         self::field('u.first_name'),

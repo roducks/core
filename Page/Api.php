@@ -39,11 +39,11 @@ abstract class Api extends Json {
    */
   public function __construct(array $settings, Db $db)
   {
+		parent::__construct($settings, $db);
+
     if (isset($settings['jwt'])) {
 			$this->_verifyToken();
 		}
-
-		parent::__construct($settings, $db);
   }
 
 	private function _verifyToken()
@@ -64,11 +64,6 @@ abstract class Api extends Json {
       $this->output(401);
 		}
 
-	}
-
-	protected function getHeader($name)
-	{
-		return Http::getRequestHeader($name);
 	}
 
 	protected function setToken(array $data = [], $timeout = 3600, $leeway = 720000)

@@ -20,8 +20,6 @@
 
 namespace Roducks\Lib\Sql;
 
-use Roducks\Framework\Helper;
-
 use mysqli;
 
 abstract class Model extends ORM implements ModelInterface {
@@ -97,6 +95,20 @@ abstract class Model extends ORM implements ModelInterface {
     return $this->_prepare();
   }
 
+  public function filter(array $conds)
+  {
+    $this
+    ->select()
+    ->from($this->table);
+
+    parent::filter($conds);
+    $this->execute();
+
+    while($row = $this->fetch()) {
+      $this->_data[] = $row;
+    }
+  }
+
   public function load($id)
   {
     $this
@@ -130,6 +142,10 @@ abstract class Model extends ORM implements ModelInterface {
       $values = $this->_data;
     }
 
+    if (empty($values)) {
+      return FALSE;
+    }
+
     $this->query
       ->insert($values)
       ->into($this->table)
@@ -143,6 +159,10 @@ abstract class Model extends ORM implements ModelInterface {
     if ($this->_orm) {
       $id = $this->_id;
       $values = $this->_values;
+    }
+
+    if (empty($values)) {
+      return FALSE;
     }
 
     return $this->query
@@ -164,7 +184,17 @@ abstract class Model extends ORM implements ModelInterface {
       ->execute();
   }
 
-  public function setValues(array $values)
+  public function isValid()
+  {
+    return $this->rows();
+  }
+
+  public function getData()
+  {
+    return $this->_data;
+  }
+
+  public function setData(array $values)
   {
     foreach ($values as $key => $value) {
       $this->set($key, $value);

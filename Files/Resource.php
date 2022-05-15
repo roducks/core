@@ -143,7 +143,6 @@ abstract class Resource {
       foreach ($configs as $config) {
         $config['path'] = $metadata['path'];
         $config['api'] = 1;
-        $config['jwt'] = 1;
         $config['uri'] .= '(/{id:int})?';
         $data[$config['uri']] = $config;
       }

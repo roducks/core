@@ -28,7 +28,18 @@ abstract class Utils {
     return preg_match('/^https?/', $url);
   }
 
-  public static function serialize(string $query): array
+  public static function serialize(array $params)
+  {
+    $data = [];
+
+    foreach ($params as $key => $value) {
+      $data[] = "{$key}={$value}";
+    }
+
+    return '?' . implode('&', $data);
+  }
+
+  public static function unserialize(string $query): array
   {
     $data = [];
     $params = [$query];

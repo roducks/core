@@ -23,6 +23,7 @@ namespace Roducks\Services;
 use Roducks\Page\Service;
 use Roducks\Framework\App;
 use Roducks\Di\ContainerInterface;
+use Roducks\Lib\Utils\Utils;
 
 class Link extends Service {
   /**
@@ -56,5 +57,11 @@ class Link extends Service {
     }, $uri);
 
     return !empty($uri) ? $uri : "#{$index}";
+  }
+
+  public function set($uri, array $params = [])
+  {
+    $queryString = !empty($params) ? Utils::serialize($params) : '';
+    return $this->url->getAbsolute(FALSE) . $uri . $queryString;
   }
 }

@@ -87,4 +87,9 @@ abstract class ORM extends Sql {
     return $this->rows();
   }
 
+  public function getQuery()
+  {
+    return $this->getString();
+  }
+
 }

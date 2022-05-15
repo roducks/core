@@ -115,8 +115,8 @@ abstract class Dispatcher {
     $data = [];
 
     foreach ($matches as $index => $match) {
-      if (!is_int($index)) {
-        $data[] = $match;
+      if (!is_int($index) && !empty($match)) {
+        $data[] = preg_match('/^\d+$/', $match) ? intval($match) : $match;
       }
     }
 
@@ -305,10 +305,10 @@ abstract class Dispatcher {
           $method = empty($placeholders) ? 'catalog' : 'get';
           break;
         case 'POST':
-          $method = 'update';
+          $method = 'store';
           break;
         case 'PUT':
-          $method = 'store';
+          $method = 'update';
           break;
         case 'DELETE':
           $method = 'delete';

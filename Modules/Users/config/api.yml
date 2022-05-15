@@ -1,5 +1,5 @@
 users.endpoint:
-  uri: '/api/v1/users'
+  uri: '/v1/users'
   dispatch: 'Roducks\Modules\Users\Api\Users'
   services:
     - user
@@ -8,16 +8,18 @@ users.endpoint:
     - POST
     - PUT
     - DELETE
+  jwt: true
 users.me:
-  uri: '/api/v1/me'
+  uri: '/v1/me'
   dispatch: 'Roducks\Modules\Users\Api\Users::me'
   services:
     - user
   methods:
     - GET
+  jwt: true
 users.auth:
-  uri: '/api/v1/auth'
-  dispatch: 'Roducks\Modules\Users\Api\Auth::verify'
+  uri: '/v1/auth'
+  dispatch: 'Roducks\Modules\Users\Api\Auth::federate'
   services:
     - user
   methods:

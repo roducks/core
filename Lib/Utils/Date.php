@@ -20,6 +20,8 @@
 
 namespace Roducks\Lib\Utils;
 
+use Roducks\Framework\Helper;
+
 abstract class Date {
   private static function _get($format, $date = NULL)
   {
@@ -173,12 +175,22 @@ abstract class Date {
     return self::_get('N', $date) < 6;
   }
 
-  public static function getLastDayOfMonth($date = NULL)
+  public static function valid($date) {
+    return preg_match('/^\d{4}-\d{2}-\d{2}$/', $date);
+  }
+
+  public static function getLastDayOfMonth($date = NULL, $month = NULL)
   {
-    $d = self::getDate($date);
-    $year = self::getYear($d);
-    $month = self::getMonth($d);
-    $fdate = implode('-', [$year, $month, '01']);
+    if (self::valid($date) && !$month) {
+      $d = self::getDate($date);
+      $year = self::getYear($d);
+      $month = self::getMonth($d);
+    }
+    else if (preg_match('/^\d+$/', $date) && preg_match('/^\d+$/', $month)) {
+      $year = $date;
+    }
+
+    $fdate = implode('-', [$year, Helper::addZero($month), '01']);
 
     return self::_get('t', $fdate);
   }

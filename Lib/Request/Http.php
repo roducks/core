@@ -124,7 +124,12 @@ abstract class Http {
 	{
 		$name = str_replace('-', '_', $name);
 
-		return self::_get('HTTP_X_' . strtoupper($name));
+		return self::_get(strtoupper($name));
+	}
+
+	public static function getRequestCustomHeader($name)
+	{
+		return self::getRequestHeader("HTTP_X_{$name}");
 	}
 
 	public static function getAuthorizationHeader()

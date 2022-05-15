@@ -64,10 +64,12 @@ class View extends Frame {
   protected $_scriptsInlineModule = '';
   protected $_scriptsInlineLibrary = '';
   protected $_scriptsInlineBlock = '';
+  protected $_scriptsInlineView = '';
   protected $_scriptsReadyTheme = '';
   protected $_scriptsReadyModule = '';
   protected $_scriptsReadyLibrary = '';
   protected $_scriptsReadyBlock = '';
+  protected $_scriptsReadyView = '';
   protected $_settings = [];
   protected $_libraries = [];
   protected $_loadedLibraries = [];
@@ -100,6 +102,7 @@ class View extends Frame {
       'user' => [
         'name' => 'Guest',
       ],
+      'links' => Autoload::$links,
     ]);
   }
 
@@ -176,6 +179,7 @@ class View extends Frame {
           $path = $this->_getThemeScript($name);
         break;
       case 'Module':
+      case 'View':
           $path = $this->_getModuleScript($name);
         break;
       case 'Library':
@@ -427,6 +431,7 @@ class View extends Frame {
         self::LN . ' ' . $this->_scriptsReadyLibrary .
         self::LN . ' ' . $this->_scriptsReadyTheme . 
         self::LN . ' ' . $this->_scriptsReadyModule . 
+        self::LN . ' ' . $this->_scriptsReadyView .
         self::LN . ' ' . $this->_scriptsReadyBlock;
       $documentReady['content'] = Duckling::render($documentReady['path']);
       $documentReady['content'] = str_replace('// {{ scripts }}', '{{ scripts }}', $documentReady['content']);
@@ -444,6 +449,7 @@ class View extends Frame {
         self::LN . $this->_scriptsInlineLibrary .
         self::LN . $this->_scriptsInlineTheme . 
         self::LN . $this->_scriptsInlineModule .
+        self::LN . $this->_scriptsInlineView .
         self::LN . $this->_scriptsInlineBlock .
         self::LN . $documentReady['content']);
   }

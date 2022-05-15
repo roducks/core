@@ -34,7 +34,7 @@ abstract class Url {
     if (preg_match('/\?/', $uri)) {
       $split = explode('?', $uri);
       $uri = $split[0];
-      $query = Utils::serialize($split[1]);
+      $query = Utils::unserialize($split[1]);
     }
 
     $response = [
@@ -50,9 +50,10 @@ abstract class Url {
     return Http::getUri();
   }
 
-  public static function getAbsolute()
+  public static function getAbsolute($uri = TRUE)
   {
-    return Http::getScheme() . '://' . Http::getServerName() . self::get();
+    $end = ($uri) ? self::get() : '';
+    return Http::getScheme() . '://' . Http::getServerName() . $end;
   }
 
   public static function getUri()

@@ -219,8 +219,13 @@ class Table extends Sql {
     $this->raw("DROP TABLE IF EXISTS `{$table}`");
   }
 
-  public function forceDrop($value)
+  public function forceDrop($value = 0)
   {
     $this->raw("SET FOREIGN_KEY_CHECKS = {$value}");
+  }
+
+  public function forceUpdate($value = 0)
+  {
+    $this->raw("SET SQL_SAFE_UPDATES = {$value}");
   }
 }

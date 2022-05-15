@@ -31,6 +31,12 @@ class Url extends Service {
     return Http::getServerName();
   }
 
+  public function redirect($uri, $absolute = TRUE)
+  {
+    $host = $absolute ? self::getAbsolute(FALSE) : '';
+    Http::redirect($host . $uri);
+  }
+
   public function get()
   {
     return $this->getHost() . UrlHelper::get();
@@ -41,9 +47,9 @@ class Url extends Service {
     return UrlHelper::get();
   }
 
-  public static function getAbsolute()
+  public static function getAbsolute($uri = TRUE)
   {
-    return UrlHelper::getAbsolute();
+    return UrlHelper::getAbsolute($uri);
   }
 
   public static function getQuery()

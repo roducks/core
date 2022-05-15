@@ -32,9 +32,7 @@ class Users extends Model {
         self::field('id'),
         self::field('email')
       ])
-      ->filter([
-        ['email:str', '=', $email]
-      ])
+      ->where('email:str', '=', $email)
       ->execute();
 
     return $this->fetch();

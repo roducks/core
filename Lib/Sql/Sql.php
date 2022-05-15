@@ -34,6 +34,7 @@ abstract class Sql {
   private $_where = TRUE;
   private $_result = NULL;
   private $_select = FALSE;
+  private $_raw = FALSE;
   private $_paramTypes = [
     'int' => 'i',
     'float' => 'd',
@@ -82,6 +83,7 @@ abstract class Sql {
     $this->_where = TRUE;
     $this->_start = 0;
     $this->_conditions = [];
+    $this->_raw = FALSE;
   }
 
   public function __construct(mysqli $mysqli)
@@ -115,23 +117,33 @@ abstract class Sql {
 
   public function raw($statment)
   {
+    $this->_raw = TRUE;
     $this->_queryString = $statment;
-    $this->_transaction = $this->_mysqli->query($this->_queryString);
-    return $this->_transaction;
+    $this->_result = $this->_mysqli->query($this->_queryString);
+    return $this->_result;
   }
 
   private function _prepare($statment)
 	{
+    $this->_raw = FALSE;
 		$this->_queryString = $statment;
     $this->_transaction = $this->_mysqli->prepare($this->_queryString);
     $bindParams = implode('', $this->_bindParams);
     $params = [];
+    
+    $values = array_map(function($value) {
+      if (is_null($value)) {
+        $value = 'NULL';
+      }
 
-    if (!empty($this->_values)) {
-      array_unshift($this->_values, $bindParams);
+      return $value;
+    }, $this->_values);
 
-      foreach ($this->_values as $i => $value) {
-        $params[] = &$this->_values[$i];
+    if (!empty($values)) {
+      array_unshift($values, $bindParams);
+
+      foreach ($values as $i => $value) {
+        $params[] = &$values[$i];
       }
 
       call_user_func_array([$this->_transaction, 'bind_param'], $params);
@@ -178,7 +190,9 @@ abstract class Sql {
 
 	public function getAffectedRecords()
 	{
-		return $this->getTransaction()->affected_rows;
+		return $this->_raw 
+    ? $this->_result->num_rows 
+    : $this->getTransaction()->affected_rows;
 	}
 
   public function hasRecords()

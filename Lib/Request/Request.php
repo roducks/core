@@ -20,8 +20,10 @@
 
 namespace Roducks\Lib\Request;
 
+use Roducks\Framework\Helper;
 use Roducks\Lib\Files\File;
 use Roducks\Lib\Utils\Utils;
+use Roducks\Page\Json;
 
 class Request {
   protected $params = [];
@@ -38,32 +40,60 @@ class Request {
 
   public function get($index, $value = NULL)
   {
-    return $this->params[$index] ?? $value;
+    $param = $this->params[$index] ?? $value;
+    return preg_match('/^\d+$/', $param) ? intval($param) : $param;
   }
 
   public function getValues()
   {
-    return $this->params;
+    return array_map(function ($item) {
+      return preg_match('/^\d+$/', $item) ? intval($item) : $item;
+    }, $this->params);
   }
 
   public static function getBody()
   {
     $input = File::getContent('php://input', TRUE);
-    $body = (is_array($input)) ? $input[0] : Utils::serialize($input);
+    $body = (is_array($input)) ? $input[0] : Utils::unserialize($input);
 
-    return $body;
+    return Http::getRequestHeader('Content-Type') == "application/json" ? Json::decode($input) : $body;
   }
 
   public static function getPost()
   {
     return array_map(function ($v) {
-      return trim($v);
+      return !is_array($v) ? trim($v) : $v;
     }, $_POST);
   }
 
   public function http($type, $url)
   {
     return HttpRequest::init($type, $url);
+  }
+
+  public function getCustomHeader($name)
+	{
+		return Http::getRequestCustomHeader($name);
+	}
+
+	public function getHeader($name)
+	{
+		return Http::getRequestHeader($name);
+	}
+
+  public function method()
+  {
+    return Http::getRequestMethod();
+  }
+
+  public function isGet()
+  {
+    return Http::getRequestMethod() == 'GET';
+  }
+
+  public function isPost()
+  {
+    return Http::getRequestMethod() == 'POST';
   }
 
 }

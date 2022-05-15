@@ -170,4 +170,18 @@ abstract class Helper {
     return $output ? $cache : $error;
   }
 
+  public static function sum(array $values, $index) {
+    $total = 0;
+
+    foreach ($values as $value) {
+      $total += $value[$index];
+    }
+
+    return $total;
+  }
+
+  public static function addZero($n) {
+    return strlen($n) < 2 ? "0{$n}" : $n;
+  }
+
 }

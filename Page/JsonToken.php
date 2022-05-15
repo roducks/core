@@ -22,8 +22,16 @@ namespace Roducks\Page;
 
 use Roducks\Services\Db;
 use Roducks\Services\Form;
+use Roducks\Lib\Request\Http;
+use Roducks\Di\ContainerInterface;
 
 abstract class JsonToken extends Json {
+  const TOKEN = 'RDKS_FORM_TOKEN';
+
+  /**
+   * @var \Roducks\Services\Form $form
+   */
+  protected $form;
 
   /**
    * 
@@ -32,12 +40,29 @@ abstract class JsonToken extends Json {
   {
     parent::__construct($settings, $db, $form);
     $token = $settings['request']->get('token', NULL);
+    $this->form = $form;
 
     if (empty($token) || $token !== $this->form->getHash(static::TOKEN)) {
       $this->data('error', TRUE);
       $this->data('message', "A valid token is required.");
       $this->output(401);
     }
+  }
+
+  public static function init(ContainerInterface $container)
+  {
+    return new static(
+      $container->get('settings'),
+      $container->get('db'),
+      $container->get('form')
+    );
+  }
+
+  protected function output($code = 200)
+  {
+    $this->_output($code);
+    $this->form->unsetHash(static::TOKEN);
+    exit;
   }
 
 }

@@ -26,6 +26,7 @@ use Roducks\Framework\App;
 use Roducks\Lib\Data\Hash;
 use Roducks\Lib\Files\File;
 use Roducks\Lib\Files\Directory;
+use Roducks\Page\Json;
 use Symfony\Component\Yaml\Yaml;
 
 class Storage extends Service {
@@ -75,5 +76,24 @@ class Storage extends Service {
   public function removeYml($name)
   {
     File::remove(self::_getFile($name, Path::YML_EXT));
+  }
+
+  public function putJson($name, array $content)
+  {
+    self::_prepare($name);
+    $data = Json::encode($content);
+    File::putContent(self::_getFile($name, Path::JSON_EXT), $data);
+  }
+
+  public function getJson($name, $format = TRUE)
+  {
+    $content = File::getContent(self::_getFile($name, Path::JSON_EXT));
+
+    if (empty($content)) {
+      return [];
+    }
+
+    $data = ($format) ? Json::decode($content) : $content;
+    return $data;
   }
 }

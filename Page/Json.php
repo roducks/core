@@ -20,39 +20,12 @@
 
 namespace Roducks\Page;
 
-use Roducks\Services\Db;
 use Roducks\Lib\Request\Http;
 use Roducks\Traits\DataTrait;
-use Roducks\Di\ContainerInterface;
-use Roducks\Services\Form;
 
 abstract class Json extends Frame {
-  const TOKEN = 'rdks_form_id';
 
   use DataTrait;
-
-  /**
-   * @var \Roducks\Services\Form $form
-   */
-  protected $form;
-
-  /**
-   * 
-   */
-  public function __construct(array $settings, Db $db, Form $form)
-  {
-    parent::__construct($settings, $db);
-    $this->form = $form;
-  }
-
-  public static function init(ContainerInterface $container)
-  {
-    return new static(
-      $container->get('settings'),
-      $container->get('db'),
-      $container->get('form')
-    );
-  }
 
   public static function encode($data)
   {
@@ -72,7 +45,7 @@ abstract class Json extends Frame {
     return $this->output($code);
   }
 
-  protected function output($code = 200)
+  protected function _output($code)
   {
     Http::setJsonHeader();
 
@@ -85,7 +58,11 @@ abstract class Json extends Frame {
     }
 
     echo self::encode($this->getData());
-    $this->form->unsetHash(static::TOKEN);
+  }
+
+  protected function output($code = 200)
+  {
+    $this->_output($code);
     exit;
   }
 }

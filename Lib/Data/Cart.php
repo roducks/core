@@ -35,12 +35,17 @@ class Cart {
 		return new static($name, $lang, $currency);
 	}
 
+	public static function getFixedNumber($v, $comma = ',')
+	{
+		return number_format($v, 2, '.', $comma);
+	}
+
 	/*
 	*	Return price format with symbol & currency
 	*/
 	public static function getPriceFormat($v, $c = 'USD', $s = '$')
 	{
-		return $s . " " . number_format($v,2,'.',',') . ' ' . $c;
+		return $s . ' ' . self::getFixedNumber($v) . ' ' . $c;
 	}
 
 	/*

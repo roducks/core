@@ -58,19 +58,28 @@ class Users extends Api {
     return $this->output();
   }
 
+  /**
+   * @type GET
+   */
   public function catalog(Request $request)
   {
     $this->data('name', __METHOD__);
-    $this->data('duke', $this->getHeader('duke'));
+    $this->data('duke', $request->getCustomHeader('duke'));
 
     return $this->output();
   }
 
+  /**
+   * @type GET
+   */
   public function get(Request $request, $id)
   {
     return $this->me($request);
   }
 
+  /**
+   * @type PUT
+   */
   public function update(Request $request)
   {
     $this->data('name', __METHOD__);
@@ -78,6 +87,9 @@ class Users extends Api {
     return $this->output();
   }
 
+  /**
+   * @type POST
+   */
   public function store(Request $request)
   {
     $res = $this->user->create($request->getValues());

@@ -20,38 +20,11 @@
 
 namespace Roducks\Modules\Users\Api;
 
-use Roducks\Page\Api;
-use Roducks\Services\Db;
-use Roducks\Modules\Users\Services\User;
 use Roducks\Lib\Request\Request;
-use Roducks\Di\ContainerInterface;
 
-class Auth extends Api {
-  /**
-   * @var \Roducks\Modules\Users\Services\User $user
-   */
-  protected $user;
+class Auth extends Users {
 
-  /**
-   * 
-   */
-  public function __construct(array $settings, Db $db, User $user)
-  {
-    unset($settings['jwt']);
-    parent::__construct($settings, $db);
-    $this->user = $user;
-  }
-
-  public static function init(ContainerInterface $container)
-  {
-    return new static(
-      $container->get('settings'),
-      $container->get('db'),
-      $container->get('user')
-    );
-  }
-
-  public function verify(Request $request)
+  public function federate(Request $request)
   {
     $user = $this->user->auth($request->get('email'), $request->get('password'));
 
