@@ -41,13 +41,18 @@ class Request {
   public function get($index, $value = NULL)
   {
     $param = $this->params[$index] ?? $value;
-    return preg_match('/^\d+$/', $param) ? intval($param) : $param;
+    return $param;
+  }
+
+  public function set($index, $value = NULL)
+  {
+    $this->params[$index] = Helper::getValue($value);
   }
 
   public function getValues()
   {
-    return array_map(function ($item) {
-      return preg_match('/^\d+$/', $item) ? intval($item) : $item;
+    return array_map(function ($value) {
+      return Helper::getValue($value);
     }, $this->params);
   }
 

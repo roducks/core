@@ -130,20 +130,12 @@ abstract class Sql {
     $this->_transaction = $this->_mysqli->prepare($this->_queryString);
     $bindParams = implode('', $this->_bindParams);
     $params = [];
-    
-    $values = array_map(function($value) {
-      if (is_null($value)) {
-        $value = 'NULL';
-      }
 
-      return $value;
-    }, $this->_values);
+    if (!empty($this->_values)) {
+      array_unshift($this->_values, $bindParams);
 
-    if (!empty($values)) {
-      array_unshift($values, $bindParams);
-
-      foreach ($values as $i => $value) {
-        $params[] = &$values[$i];
+      foreach ($this->_values as $i => $value) {
+        $params[] = &$this->_values[$i];
       }
 
       call_user_func_array([$this->_transaction, 'bind_param'], $params);

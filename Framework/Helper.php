@@ -184,4 +184,16 @@ abstract class Helper {
     return strlen($n) < 2 ? "0{$n}" : $n;
   }
 
+  public static function getValue($value)
+  {
+    $value = trim($value);
+
+    if (preg_match('/^\d+$/', $value)) {
+      $value = intval($value);
+    }
+    else if (strtolower($value) == 'null') {
+      $value = NULL;
+    }
+  }
+
 }
