@@ -121,7 +121,7 @@ class Module extends Cli {
     $setup->select([
       'id',
     ]);
-    $setup->filter([
+    $setup->where([
       ['module:str', '=', $module]
     ]);
     $setup->execute();

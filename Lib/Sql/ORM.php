@@ -51,6 +51,7 @@ abstract class ORM extends Sql {
   private function _sort($n, $sort)
   {
     $this
+      ->select()
       ->orderBy($this->id, $sort)
       ->limit($n)
       ->execute();

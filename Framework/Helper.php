@@ -194,6 +194,8 @@ abstract class Helper {
     else if (strtolower($value) == 'null') {
       $value = NULL;
     }
+
+    return $value;
   }
 
 }

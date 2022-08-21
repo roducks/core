@@ -125,7 +125,6 @@ abstract class Sql {
 
   private function _prepare($statment)
 	{
-    $this->_raw = FALSE;
 		$this->_queryString = $statment;
     $this->_transaction = $this->_mysqli->prepare($this->_queryString);
     $bindParams = implode('', $this->_bindParams);
@@ -142,6 +141,7 @@ abstract class Sql {
     }
 
     $this->_transaction->execute();
+    $this->_reset();
 
     if ($this->_select) {
       $this->_result = $this->_transaction->get_result();
