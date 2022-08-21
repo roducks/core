@@ -36,9 +36,7 @@ abstract class ORM extends Sql {
 
   public function filter(array $conditions)
   {
-    $this->conditions($conditions);
-
-    return $this;
+    return parent::conditions($conditions);
   }
 
   public function getAll(array $fields = [])
@@ -79,7 +77,7 @@ abstract class ORM extends Sql {
   {
     $this
       ->select()
-      ->filter($conditions)
+      ->conditions($conditions)
       ->execute();
 
     $this->fetch();
