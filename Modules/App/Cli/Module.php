@@ -121,9 +121,7 @@ class Module extends Cli {
     $setup->select([
       'id',
     ]);
-    $setup->where([
-      ['module:str', '=', $module]
-    ]);
+    $setup->where('module:str', '=', $module);
     $setup->execute();
 
     while ($row = $setup->fetch()) {
